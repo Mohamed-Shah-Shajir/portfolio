@@ -1,9 +1,51 @@
-<html>
-    <head>
-        <title>home page</title>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Portfolio — Home</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home">Home</a> |
+            <a href="#about">About</a> |
+            <a href="#projects">Projects</a> |
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-    </head>
-    <body>
-        <h1>Welcome to the Home Page</h1>
-    </body>
+    <main>
+        <section id="home">
+            <h1>Mohamed Shah Shajir</h1>
+            <p>Frontend developer building simple, accessible web experiences.</p>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>Short bio: I build UIs with a focus on clarity and performance.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <ul>
+                <li><a href="#">Project One</a></li>
+                <li><a href="#">Project Two</a></li>
+                <li><a href="#">Project Three</a></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© <span id="year"></span> Alex Morgan</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
 </html>
