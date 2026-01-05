@@ -22,25 +22,47 @@
       transform: translateY(0);
     }
   }
+
+  html { scroll-behavior: smooth; }
+
+  .glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
   
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+
 
 </head>
 
 <body class="bg-gray-50 text-gray-800">
 
 <!-- NAVBAR -->
-<nav class="fixed w-full bg-white shadow z-50">
+<nav id="navbar"
+     class="fixed w-full z-50 transition-all duration-300">
   <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-
-    <!-- Clickable Name / Signature -->
+    
+    <!-- Clickable Signature Name -->
     <a href="#home"
-       class="text-2xl text-gray-900 hover:text-blue-600 transition"
-       style="font-family: 'Pacifico', cursive;">
+       class="relative text-[1.6rem] font-medium tracking-wide
+              text-gray-900 hover:text-blue-600 transition
+              after:absolute after:left-0 after:-bottom-1
+              after:h-[2px] after:w-0 after:bg-blue-600
+              after:transition-all after:duration-300
+              hover:after:w-full"
+       style="font-family: 'Dancing Script', cursive;">
       Mohamed Shah Shajir
     </a>
 
@@ -60,7 +82,7 @@
 
 
 <!-- HERO -->
-<section id="home" class="min-h-screen flex items-center justify-center text-center px-6">
+<section id="home" class="min-h-screen pt-24 flex items-center justify-center text-center px-6">
   <div class="fade-in">
     <h1 class="text-4xl md:text-5xl font-bold">
       Hi, I'm <span class="text-blue-600">Shah</span> 👋
@@ -159,6 +181,20 @@
      shahshajir@gmail.com
   </a>
 </section>
+
+
+
+<script>
+  const navbar = document.getElementById("navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add("glass", "shadow-sm");
+    } else {
+      navbar.classList.remove("glass", "shadow-sm");
+    }
+  });
+</script>
 
 </body>
 </html>
