@@ -70,6 +70,48 @@
     }
   }
   
+  /* Blob floating animation */
+
+  @keyframes blobFloat {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(25px, -30px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  .blob-animate {
+    animation: blobFloat 22s ease-in-out infinite;
+  }
+
+  /* Accessibility: reduce motion if user prefers */
+  @media (prefers-reduced-motion: reduce) {
+    .blob-animate {
+      animation: none;
+    }
+  }
+
+  /* Scroll reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Wave floating animation */
+
+.wave-float {
+  animation: waveFloat 8s ease-in-out infinite;
+}
+
+@keyframes waveFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +125,27 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800">
+
+<!-- Floating Background Blobs -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+
+  <div class="absolute top-[-10rem] left-[-10rem]
+              w-[30rem] h-[30rem]
+              bg-purple-300 rounded-full blur-3xl opacity-30
+              blob-animate" style="animation-delay: 0s;"></div>
+
+  <div class="absolute top-[20rem] right-[-10rem]
+              w-[28rem] h-[28rem]
+              bg-blue-300 rounded-full blur-3xl opacity-30
+              blob-animate" style="animation-delay: 6s;"></div>
+
+  <div class="absolute bottom-[-10rem] left-[20rem]
+              w-[25rem] h-[25rem]
+              bg-pink-300 rounded-full blur-3xl opacity-30
+              blob-animate" style="animation-delay: 12s;"></div>
+
+</div>
+
 
 <!-- NAVBAR -->
 <nav id="navbar"
@@ -222,9 +285,21 @@
   </p>
 </section>
 
+<!-- Section Separator -->
+<div class="relative -mt-1">
+  <svg viewBox="0 0 1440 90" preserveAspectRatio="none"
+       class="w-full h-24 wave-float">
+    <path
+      fill="rgba(255,255,255,0.8)"
+      d="M0,40 C120,60 300,20 480,30 660,40 840,80 1020,70 1200,60 1320,30 1440,20 L1440,0 L0,0 Z">
+    </path>
+  </svg>
+</div>
+
 
 <!-- PROJECTS -->
-<section id="projects" class="bg-white py-20">
+<section id="projects"
+  class="bg-white/80 backdrop-blur-sm py-20 reveal">
   <div class="max-w-5xl mx-auto px-6">
     <h2 class="text-3xl font-bold mb-10">Projects</h2>
 
@@ -250,10 +325,28 @@
   </div>
 </section>
 
+<!-- Section Separator -->
+
+<div class="relative -mb-1 wave-float">
+  <svg
+    viewBox="0 0 1440 90"
+    preserveAspectRatio="none"
+    class="w-full h-24 transform rotate-180">
+    <path
+      fill="rgba(243,244,246,0.8)"
+      d="M0,40 C120,60 300,20 480,30
+         660,40 840,80 1020,70
+         1200,60 1320,30 1440,20
+         L1440,0 L0,0 Z">
+    </path>
+  </svg>
+</div>
 
 
 <!-- SKILLS -->
-<section id="skills" class="bg-gray-100 py-20">
+<section id="skills"
+  class="bg-gray-100/80 backdrop-blur-sm py-20 reveal">
+  
   <div class="max-w-5xl mx-auto px-6">
     <h2 class="text-3xl font-bold mb-6">Skills</h2>
     <div class="flex flex-wrap gap-3">
@@ -266,6 +359,22 @@
     </div>
   </div>
 </section>
+
+<!-- Section Separator -->
+<div class="relative -mb-1 wave-float">
+  <svg
+    viewBox="0 0 1440 90"
+    preserveAspectRatio="none"
+    class="w-full h-24 transform rotate-180">
+    <path
+      fill="rgba(243,244,246,0.8)"
+      d="M0,40 C120,60 300,20 480,30
+         660,40 840,80 1020,70
+         1200,60 1320,30 1440,20
+         L1440,0 L0,0 Z">
+    </path>
+  </svg>
+</div>
 
 <!-- CONTACT -->
 <section id="contact" class="max-w-3xl mx-auto px-6 py-20 text-center">
@@ -342,6 +451,25 @@
     link.addEventListener("click", () => {
       mobileMenu.classList.add("hidden");
     });
+  });
+
+  // Scroll Reveal Animation
+  const reveals = document.querySelectorAll(".reveal");
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  reveals.forEach(section => {
+    revealObserver.observe(section);
   });
 
 </script>
