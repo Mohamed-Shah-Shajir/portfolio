@@ -448,16 +448,30 @@
   const menuBtn = document.getElementById("menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
 
-  menuBtn.addEventListener("click", () => {
+  // Toggle menu when hamburger is clicked
+  menuBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent body click
     mobileMenu.classList.toggle("hidden");
   });
 
-  // Close menu when clicking a link
+  // Close menu when clicking a menu link
   document.querySelectorAll("#mobile-menu a").forEach(link => {
     link.addEventListener("click", () => {
       mobileMenu.classList.add("hidden");
     });
   });
+
+  // Close menu when clicking ANYWHERE outside
+  document.addEventListener("click", (e) => {
+    if (
+      !mobileMenu.classList.contains("hidden") &&
+      !mobileMenu.contains(e.target) &&
+      !menuBtn.contains(e.target)
+    ) {
+      mobileMenu.classList.add("hidden");
+    }
+  });
+
 
   // Scroll Reveal Animation
   const reveals = document.querySelectorAll(".reveal");
